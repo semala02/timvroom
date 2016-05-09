@@ -55,21 +55,30 @@ public class TimvroomTest {
 	
 	   @FindBy(id="answer1")
 	   WebElement answer1Field;
+	   String answer1;
 	   @FindBy(id="answer4")
+	   String answer4;
 	   WebElement answer4Field;
 	   @FindBy(id="answer6")
+	   String answer6;
 	   WebElement answer6Field;
 	   @FindBy(id="answer8")
+	   String answer8;
 	   WebElement answer8Field;
+	   String answer10;
 	   @FindBy(id="answer10")
 	   WebElement answer10Field;
        @FindBy(id="answer11")
+       String answer11;
        WebElement answer11Field;
        @FindBy(id="answer13")
+       String answer13;
        WebElement answer13Field;
        @FindBy(id="answer14")
+       String answer14;
        WebElement answer14Field;
 	   @FindBy(id="name")
+	   String nameanswer;
 	   WebElement nameField;
 	   @FindBy(xpath="//a[@onclick='link_clicked();return false']")
 	   WebElement link_clicked;
@@ -81,11 +90,13 @@ public class TimvroomTest {
 	    WebElement titleelement = driver.findElement(By.tagName("title"));
 	    String title = titleelement.getText();
 	    answer1Field.sendKeys(title);
+	    answer1=title;
 	
  }
  @Test
  public void task2(){
 	    nameField.sendKeys("Kilgore Trout");
+	    nameanswer="Kilgore Trout";
  }
  @Test
  public void task3(){
@@ -100,6 +111,7 @@ public class TimvroomTest {
 	    String blueboxstring = Integer.toString(blueboxes);
 	    answer4Field.sendKeys(blueboxstring);
 	    System.out.println("Blueboxes="+blueboxes);
+	    answer4=blueboxstring;
  }
  @Test
  public void task5(){
@@ -112,6 +124,7 @@ public class TimvroomTest {
 	    String classvalue = redbox.getAttribute("class");
 	    answer6Field.sendKeys(classvalue);
 	    System.out.println("Class="+classvalue);
+	    answer6=classvalue;
  }
  @Test
  public void task7(){
@@ -124,6 +137,7 @@ public class TimvroomTest {
 	    Long value = (Long)val;
 	    String valtosend=value.toString();
 	    answer8Field.sendKeys(valtosend);
+	    answer8=valtosend;
 	    //System.out.println("got_return_from_js_function()="+val);
  }
  
@@ -139,6 +153,7 @@ public class TimvroomTest {
 	    String redboxtext = redbox.getText();
 	    answer10Field.sendKeys(redboxtext);
 	    System.out.println("Rexbox text="+redboxtext);
+	    answer10=redboxtext;
  }
  @Test
  public void task92_11(){
@@ -157,6 +172,7 @@ public class TimvroomTest {
 		    box="Orange";}
 	    answer11Field.sendKeys(box);
 	    System.out.println("Box: "+box);
+	    answer11=box;
   }
   @Test
   public void task93_12(){
@@ -183,6 +199,7 @@ public class TimvroomTest {
 	    	 result="no";}
 	     System.out.println("id ishere found="+result);
 	     answer13Field.sendKeys(result);
+	     answer13=result;
   }
   @Test
   public void task95_14(){
@@ -195,6 +212,7 @@ public class TimvroomTest {
 	    	 result="no";}
 	     System.out.println("Purplebox displayed="+result);
 	     answer14Field.sendKeys(result);
+	     answer14=result;
 	     
   }
   @Test
@@ -215,6 +233,19 @@ public class TimvroomTest {
   }
   @Test
   public void task97_17() {
+	     nameField.sendKeys(nameanswer);
+	     answer1Field.sendKeys(answer1);
+		    WebElement dropDownList = driver.findElement(By.id("occupation"));
+		    new Select(dropDownList).selectByVisibleText("Science Fiction Author");
+
+	     answer4Field.sendKeys(answer4);
+	     answer6Field.sendKeys(answer6);
+	     answer8Field.sendKeys(answer8);
+		    WebElement radio=driver.findElement(By.xpath("//input[@value='wrotebook']"));
+		    radio.click();
+         answer11Field.sendKeys(answer11);
+         answer13Field.sendKeys(answer13);
+         answer14Field.sendKeys(answer14);
 	     submitform.click();
   }
   
