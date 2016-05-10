@@ -28,13 +28,15 @@ public class TimvroomTest {
 
 	protected static WebDriver driver;
 	JavascriptExecutor js = (JavascriptExecutor) driver;
-	
+	String nameanswer;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		System.setProperty("webdriver.chrome.driver", "/home/etxmsl/workspace/timvroom/chromedriver");
 		if (driver == null){
 		 driver=new ChromeDriver();
+	     driver.get("http://timvroom.com/selenium/playground/");
+
 		}
 
 	}
@@ -49,54 +51,45 @@ public class TimvroomTest {
 
 	//@Test
 	public TimvroomTest() {
-	      driver.get("http://timvroom.com/selenium/playground/");
-	      PageFactory.initElements(driver, this);
+		PageFactory.initElements(driver, this);
 	}
 	
 	   @FindBy(id="answer1")
 	   WebElement answer1Field;
-	   String answer1;
 	   @FindBy(id="answer4")
-	   String answer4;
 	   WebElement answer4Field;
 	   @FindBy(id="answer6")
-	   String answer6;
 	   WebElement answer6Field;
 	   @FindBy(id="answer8")
-	   String answer8;
 	   WebElement answer8Field;
-	   String answer10;
 	   @FindBy(id="answer10")
 	   WebElement answer10Field;
        @FindBy(id="answer11")
-       String answer11;
        WebElement answer11Field;
        @FindBy(id="answer13")
-       String answer13;
        WebElement answer13Field;
        @FindBy(id="answer14")
-       String answer14;
-       WebElement answer14Field;
+       WebElement answer14Field; 
 	   @FindBy(id="name")
-	   String nameanswer;
 	   WebElement nameField;
 	   @FindBy(xpath="//a[@onclick='link_clicked();return false']")
 	   WebElement link_clicked;
+	   @FindBy(id="submitbutton")
+	   WebElement submit;
 	   @FindBy(id="checkresults")
-	   WebElement submitform;
+	   WebElement checkresult;
 	   
  @Test
  public void task1(){
-	    WebElement titleelement = driver.findElement(By.tagName("title"));
-	    String title = titleelement.getText();
+	    String title = driver.getTitle();
+	    //String title = titleelement.getText();
 	    answer1Field.sendKeys(title);
-	    answer1=title;
 	
  }
  @Test
  public void task2(){
-	    nameField.sendKeys("Kilgore Trout");
 	    nameanswer="Kilgore Trout";
+	    nameField.sendKeys(nameanswer);
  }
  @Test
  public void task3(){
@@ -111,7 +104,6 @@ public class TimvroomTest {
 	    String blueboxstring = Integer.toString(blueboxes);
 	    answer4Field.sendKeys(blueboxstring);
 	    System.out.println("Blueboxes="+blueboxes);
-	    answer4=blueboxstring;
  }
  @Test
  public void task5(){
@@ -124,7 +116,6 @@ public class TimvroomTest {
 	    String classvalue = redbox.getAttribute("class");
 	    answer6Field.sendKeys(classvalue);
 	    System.out.println("Class="+classvalue);
-	    answer6=classvalue;
  }
  @Test
  public void task7(){
@@ -137,7 +128,6 @@ public class TimvroomTest {
 	    Long value = (Long)val;
 	    String valtosend=value.toString();
 	    answer8Field.sendKeys(valtosend);
-	    answer8=valtosend;
 	    //System.out.println("got_return_from_js_function()="+val);
  }
  
@@ -153,7 +143,6 @@ public class TimvroomTest {
 	    String redboxtext = redbox.getText();
 	    answer10Field.sendKeys(redboxtext);
 	    System.out.println("Rexbox text="+redboxtext);
-	    answer10=redboxtext;
  }
  @Test
  public void task92_11(){
@@ -167,12 +156,12 @@ public class TimvroomTest {
 	    System.out.println("Greenbox location: "+greenbox);
 	    System.out.println("Orangebox location: "+orangebox);
 	    if (greenbox<orangebox){
-		    box="Green";}
+		    box="green";}
 	    else{
-		    box="Orange";}
+		    box="orange";}
 	    answer11Field.sendKeys(box);
 	    System.out.println("Box: "+box);
-	    answer11=box;
+	    //answer11=box;
   }
   @Test
   public void task93_12(){
@@ -190,8 +179,12 @@ public class TimvroomTest {
   }
   @Test
   public void task94_13(){
-	     boolean found = driver.findElement(By.id("ishere")).isDisplayed();
-	     //boolean found = ishere.isEnabled();
+	     boolean found=false;
+	     try{
+	         found= driver.findElement(By.id("ishere")).isEnabled();
+	     }catch(Exception e){
+	    	 System.out.println("id ishere not found");
+	     }
 	     String result;
 	     if (found){
 	    	 result="yes";}
@@ -199,7 +192,6 @@ public class TimvroomTest {
 	    	 result="no";}
 	     System.out.println("id ishere found="+result);
 	     answer13Field.sendKeys(result);
-	     answer13=result;
   }
   @Test
   public void task95_14(){
@@ -212,7 +204,6 @@ public class TimvroomTest {
 	    	 result="no";}
 	     System.out.println("Purplebox displayed="+result);
 	     answer14Field.sendKeys(result);
-	     answer14=result;
 	     
   }
   @Test
@@ -224,29 +215,17 @@ public class TimvroomTest {
 	     wait.pollingEvery(100, TimeUnit.MILLISECONDS);
 	     WebElement clickgame2 = driver.findElement(By.linkText("click after wait"));
 	     clickgame2.click();
-	     String alerttext;
 	     WebDriverWait wait2 = new WebDriverWait(driver, 5);
 	     wait2.until(ExpectedConditions.alertIsPresent());
 	     Alert alert = driver.switchTo().alert();
-	     alerttext=alert.getText();
-	     alert.accept();     
+	     String alerttext=alert.getText();
+	     alert.accept();  
+	     System.out.println("Alerttext: "+alerttext);
   }
   @Test
   public void task97_17() {
-	     nameField.sendKeys(nameanswer);
-	     answer1Field.sendKeys(answer1);
-		    WebElement dropDownList = driver.findElement(By.id("occupation"));
-		    new Select(dropDownList).selectByVisibleText("Science Fiction Author");
-
-	     answer4Field.sendKeys(answer4);
-	     answer6Field.sendKeys(answer6);
-	     answer8Field.sendKeys(answer8);
-		    WebElement radio=driver.findElement(By.xpath("//input[@value='wrotebook']"));
-		    radio.click();
-         answer11Field.sendKeys(answer11);
-         answer13Field.sendKeys(answer13);
-         answer14Field.sendKeys(answer14);
-	     submitform.click();
+	         submit.click();
+		     checkresult.click();
   }
   
 }
